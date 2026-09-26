@@ -10,12 +10,13 @@ export async function conectionMongo() {
         console.log('intentado conectar a:', uriOculta);
 
         await mongoose.connect(process.env.MONGO_URI, {
-            serverSelectionTimeoutMS: 5000,
+            serverSelectionTimeoutMS: 15000,
             retryWrites: true
         });
 
         console.log('conexion exitosa a la bases de datos');
     } catch (error) {
         console.error('error al conectarse a la bases de datos:', error.message || error);
+        throw error;
     }
 }

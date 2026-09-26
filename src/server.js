@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import { fileURLToPath } from "node:url";
 import { conectionMongo } from "./config/dataBase.js";
 import categoriaRoutes from "./router/categoria.routes.js";
@@ -9,9 +10,10 @@ import productoRoutes from "./router/producto.routes.js";
 import resenaRoutes from "./router/resena.routes.js";
 import usuarioRoutes from "./router/usuario.routes.js";
 
-dotenv.config({ path: fileURLToPath(new URL(".env", import.meta.url)) });
+dotenv.config({ path: fileURLToPath(new URL("../.env", import.meta.url)) });
 
 const app = express();
+app.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:4200" }));
 app.use(express.json());
 
 app.use("/api/categorias", categoriaRoutes);
